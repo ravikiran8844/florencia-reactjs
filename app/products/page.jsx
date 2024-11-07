@@ -6,8 +6,8 @@ import React, { useState , useEffect} from "react";
 
 
 function calculatePrice(goldWeight, diamondWeight, makingCharge) {
-  const goldPrice = 5000; // example value per gram
-  const diamondPrice = 8000; // example value per carat
+  const goldPrice = 6200; // example value per gram
+  const diamondPrice = 110000; // example value per carat
   return (
     goldWeight * goldPrice + diamondWeight * diamondPrice + makingCharge / 100
   );
