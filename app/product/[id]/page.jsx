@@ -23,7 +23,7 @@ import { useRouter } from 'next/navigation'
 const GOLD_RATE = 6200;
 const DIAMOND_RATE = 110000;
 
-const page = ({ params }) => {
+const ProductPage = ({ params }) => {
   const [product, setProduct] = useState(null); // Use null initially
   const {id} = use(params);
   const slug = id;
@@ -425,4 +425,4 @@ const page = ({ params }) => {
   );
 };
 
-export default page;
+export default ProductPage;

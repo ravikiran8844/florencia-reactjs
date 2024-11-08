@@ -40,7 +40,7 @@ export default function CartPage() {
              <ul className="space-y-4">
                {cart.map((item,index) => (
                  <li key={item.designNo} className="flex items-center gap-4 border-t py-2">
-                   <img
+                   <Image width={200} height={200}
                      src={`/images/products/${item.designNo}.jpg`}
                      alt={item.name}
                      className="w-16 h-16 rounded object-cover"
