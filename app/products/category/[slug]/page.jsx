@@ -5,10 +5,11 @@ import { notFound } from 'next/navigation';
 
 
 const getProductsData = async () => {
-    const response = await fetch(`http://localhost:3000/products.json`);
-    const data = await response.json()
-    return data;
-}
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products.json`);
+  const data = await response.json();
+  return data;
+};
+
 
 function formatSlug(slug) {
     return slug
