@@ -109,6 +109,7 @@ const ProductPage = ({ params }) => {
       goldWeight: selectedGoldWt,
       diamondType: selectedDiamondType,
       diamondWeight: selectedDiaWt,
+      slug: product["slug"],
       price: price, // The calculated price based on the selected options
       quantity: 1
     };
