@@ -41,31 +41,43 @@ const Header = () => {
                 HOME
               </Link>
               <Link
-                href="/products"
+                href="/products/category/pendant"
                 className="hover:text-indigo-600 h-full border-b-2 border-transparent hover:border-indigo-600 hover:border-b-2"
               >
                 PENDANT
               </Link>
               <Link
-                href="/products"
+                href="/products/category/ladies-ring"
                 className="hover:text-indigo-600 h-full border-b-2 border-transparent hover:border-indigo-600 hover:border-b-2"
               >
-                RINGS
+                LADIES RINGS
               </Link>
               <Link
-                href="/products"
+                href="/products/category/gents-ring"
+                className="hover:text-indigo-600 h-full border-b-2 border-transparent hover:border-indigo-600 hover:border-b-2"
+              >
+                GENTS RINGS
+              </Link>
+              <Link
+                href="/products/category/bali"
                 className="hover:text-indigo-600 h-full border-b-2 border-transparent hover:border-indigo-600 hover:border-b-2"
               >
                 BALI
               </Link>
               <Link
-                href="/products"
+                href=" /products/category/earring"
+                className="hover:text-indigo-600 h-full border-b-2 border-transparent hover:border-indigo-600 hover:border-b-2"
+              >
+                Earring
+              </Link>
+              <Link
+                href="/products/category/full-set"
                 className="hover:text-indigo-600 h-full border-b-2 border-transparent hover:border-indigo-600 hover:border-b-2"
               >
                 FULL SET
               </Link>
             </div>
-            
+           
 
 
 
@@ -103,32 +115,44 @@ const Header = () => {
                       <SheetDescription>
                        
                       <span className="flex flex-col gap-6 items-start flex-grow mt-5">
-              <Link
+                      <Link
                 href="/"
                 className="hover:text-indigo-600 h-full border-b-2 border-transparent hover:border-indigo-600 hover:border-b-2"
               >
                 HOME
               </Link>
               <Link
-                href="/products"
+                href="/products/category/pendant"
                 className="hover:text-indigo-600 h-full border-b-2 border-transparent hover:border-indigo-600 hover:border-b-2"
               >
                 PENDANT
               </Link>
               <Link
-                href="/products"
+                href="/products/category/ladies-ring"
                 className="hover:text-indigo-600 h-full border-b-2 border-transparent hover:border-indigo-600 hover:border-b-2"
               >
-                RINGS
+                LADIES RINGS
               </Link>
               <Link
-                href="/products"
+                href="/products/category/gents-ring"
+                className="hover:text-indigo-600 h-full border-b-2 border-transparent hover:border-indigo-600 hover:border-b-2"
+              >
+                GENTS RINGS
+              </Link>
+              <Link
+                href="/products/category/bali"
                 className="hover:text-indigo-600 h-full border-b-2 border-transparent hover:border-indigo-600 hover:border-b-2"
               >
                 BALI
               </Link>
               <Link
-                href="/products"
+                href=" /products/category/earring"
+                className="hover:text-indigo-600 h-full border-b-2 border-transparent hover:border-indigo-600 hover:border-b-2"
+              >
+                Earring
+              </Link>
+              <Link
+                href="/products/category/full-set"
                 className="hover:text-indigo-600 h-full border-b-2 border-transparent hover:border-indigo-600 hover:border-b-2"
               >
                 FULL SET
