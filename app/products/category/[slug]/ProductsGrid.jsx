@@ -275,7 +275,7 @@ const ProductsGrid = ({productsData,selectedCategory}) => {
                 >
                     <div>
                        <Link href={`/product/${product["slug"]}`}>
-                       <Image 
+                       <img 
                             className="aspect-square object-contain m-auto" 
                             src={`/images/products/${product["DESIGN NO"]}.jpg`} 
                             width={200} 

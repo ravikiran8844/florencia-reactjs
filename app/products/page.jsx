@@ -18,7 +18,7 @@ const Catalog = () => {
 
     useEffect(() => {
         // Fetch JSON data from the public folder
-        fetch('/products.json')
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/products.json`)
           .then((response) => response.json())
           .then((jsonData) => setProducts(jsonData))
           .catch((error) => console.error('Error fetching JSON:', error));
@@ -279,7 +279,7 @@ const Catalog = () => {
                 >
                     <div>
                        <Link href={`/product/${product["slug"]}`}>
-                       <Image 
+                       <img 
                             className="aspect-square object-contain m-auto" 
                             src={`/images/products/${product["DESIGN NO"]}.jpg`} 
                             width={200} 
