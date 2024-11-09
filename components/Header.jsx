@@ -12,13 +12,13 @@ import {
 
 const Header = () => {
   return (
-    <div>
+    <div className="sticky top-0 left-0 right-0 bg-white z-10">
       <div className="w-full p-2 md:px-10 lg:px-16 bg-[#4F3267] text-white min-h-8 flex items-center justify-center text-xs text-center">
         <div className="announcement-slide">
           Flo with Florencia - Fashionable Jewellery for the Fashionable You
         </div>
       </div>
-      <header className="shadow-lg border-b">
+      <header className="shadow-lg border-b ">
         <div className="p-2 md:px-10 lg:px-16">
           <div className="flex justify-between items-center gap-6">
             <div className="w-[160px]">

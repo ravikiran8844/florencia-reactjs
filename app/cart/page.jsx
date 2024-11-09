@@ -110,12 +110,12 @@ export default function CartPage() {
                   </dl>
 
                   <div className="flex justify-end">
-                    <a
-                      href="#"
-                      className="block rounded bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600"
+                    <Link
+                      href="/checkout"
+                      className="block rounded px-5 py-3 text-sm main-btn text-white uppercase"
                     >
                       Checkout
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>

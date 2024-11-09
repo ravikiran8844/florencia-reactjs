@@ -134,17 +134,26 @@ const ProductPage = ({ params }) => {
       // alert("Item already added to cart");
       toast.error("Item already added to cart");
 
+      setTimeout(() => {
+        router.push('/cart')
+        }, 1200);
+        
     } else {
-      // Add the new product to the cart
-      cart.push(selectedProduct);
-      router.push('/cart')
-      
-      // Save the updated cart to localStorage
-      localStorage.setItem("cart", JSON.stringify(cart));
-      
+            
       // Alert the user that the item has been added to the cart
       // alert("Item added to cart");
       toast.success("Item added to cart");
+      setTimeout(() => {
+        router.push('/cart')
+        }, 1200);
+        
+
+      // Add the new product to the cart
+      cart.push(selectedProduct);
+
+      // Save the updated cart to localStorage
+      localStorage.setItem("cart", JSON.stringify(cart));
+
 
     }
   

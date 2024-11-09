@@ -13,7 +13,7 @@ body {
 }
 
 
-.add-to-cart-btn{
+.add-to-cart-btn,.main-btn{
   border-radius: 8px;
   background: linear-gradient(90deg, #E56EEB -13.59%, #8863FB 111.41%);
   color: #ffffff;

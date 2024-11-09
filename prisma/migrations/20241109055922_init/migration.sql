@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Product" ALTER COLUMN "mc_percentage" SET DATA TYPE DOUBLE PRECISION;
