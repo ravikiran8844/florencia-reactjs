@@ -174,8 +174,8 @@ const ProductPage = ({ params }) => {
 
   return (
     <section className="text-gray-600 body-font overflow-hidden">
-      <div className="p-2 md:px-10 lg:p-16  grid grid-cols-1 lg:grid-cols-2 gap-10 w-11/12 mx-auto">
-        <div className="bg-white border shadow-lg rounded-lg overflow-hidden aspect-square">
+      <div className="p-2 py-6 md:px-10 lg:p-16  grid grid-cols-1 lg:grid-cols-2 gap-10 w-11/12 mx-auto">
+        <div className="bg-white border shadow-lg rounded-lg overflow-hidden aspect-square max-w-sm m-auto">
           <Image
             width={600}
             height={600}
@@ -183,7 +183,7 @@ const ProductPage = ({ params }) => {
             className="aspect-square object-contain"
             src={`/images/products/${product["DESIGN NO"]}.JPG`}          />
         </div>
-        <div>
+        <div className=" flex flex-col items-center justify-center lg:items-start lg:justify-start">
           <h2 className="text-sm title-font text-gray-500 tracking-widest">
             {product.CATEGORY}
           </h2>
@@ -250,34 +250,34 @@ const ProductPage = ({ params }) => {
               <span className="text-gray-600 ml-3">4 Reviews</span>
             </span>
           </div>
-          <h2 className="text-xl font-semibold mb-4">Price: ₹{price}</h2>
+          <h2 className="text-xl font-semibold">Price: ₹{price}</h2>
 
-          <div className="flex border border-yellow-400 rounded-lg w-fit divide-x divide-orange-400 overflow-hidden mt-8">
-            <div className="p-2">
+          <div className="flex flex-wrap border border-orange-400 rounded-lg w-fit divide-x divide-y  divide-orange-400  overflow-hidden mt-8">
+            <div className="p-2 flex-grow text-center">
               <div className="text-xs">Metal</div>
               <div className="text-sm font-medium" id="selected-metal">
                 {selectedGoldType} Gold
               </div>
             </div>
-            <div className="p-2">
+            <div className="p-2 flex-grow text-center">
               <div className="text-xs">Gold Wt</div>
               <div className="text-sm font-medium" id="selected-size">
                 {selectedGoldWt} gm
               </div>
             </div>
-            <div className="p-2">
+            <div className="p-2 flex-grow text-center">
               <div className="text-xs">Diamond</div>
               <div className="text-sm font-medium" id="selected-diamond">
                 {selectedDiamondType}
               </div>
             </div>
-            <div className="p-2">
+            <div className="p-2 flex-grow text-center">
               <div className="text-xs">Diamond Wt</div>
               <div className="text-sm font-medium" id="selected-diamond">
                 {selectedDiaWt} ct
               </div>
             </div>
-            <div className="bg-yellow-400 p-2 text-black flex items-center justify-center">
+            <div className="bg-yellow-400 p-2 flex-grow text-black flex items-center justify-center text-center">
               <Dialog>
                 <DialogTrigger>
                   <div className="uppercase text-sm h-full font-medium fle">

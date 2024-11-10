@@ -197,7 +197,7 @@ const Footer = () => {
         </div>
       </div> */}
       <div className="  md:flex md:items-center md:justify-between">
-        <div className="flex space-x-6 md:order-2">
+        <div className="flex flex-wrap space-x-4 md:order-2">
           <a href="#" className="text-gray-400 hover:text-gray-500">
             <span className="sr-only">Facebook</span>
             <svg

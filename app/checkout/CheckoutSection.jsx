@@ -3,6 +3,9 @@ import { useState, useEffect } from "react";
 import { RadioGroup } from "@headlessui/react";
 import { CheckCircleIcon } from "@heroicons/react/20/solid";
 import { TrashIcon } from "lucide-react";
+import Script from 'next/script'
+import { redirect } from "next/navigation";
+import local from "next/font/local";
 
 const deliveryMethods = [
   { id: 1, title: "Standard", turnaround: "4–10 business days", price: "₹40" },
@@ -16,6 +19,7 @@ function classNames(...classes) {
 
 export default function CheckoutSection() {
   const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState(deliveryMethods[0]);
+  const [currency, setCurrency] = useState('INR');
   const [cartItems, setCartItems] = useState([]);
   const [total, setTotal] = useState(0);
   const [email, setEmail] = useState("");
@@ -37,9 +41,12 @@ export default function CheckoutSection() {
     setCartItems(storedCartItems);
 
     // Calculate total
-    const calculateTotal = storedCartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+    const calculateTotal = storedCartItems.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2);
     setTotal(calculateTotal);
   }, []);
+
+
+
 
   const updateQuantity = (id, newQuantity) => {
     const updatedCart = cartItems.map((item) =>
@@ -49,7 +56,7 @@ export default function CheckoutSection() {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
 
     // Update total
-    const updatedTotal = updatedCart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+    const updatedTotal = updatedCart.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2);
     setTotal(updatedTotal);
   };
 
@@ -72,9 +79,86 @@ export default function CheckoutSection() {
       cartItems,
       totalPrice: total,
     };
+    payNow();
     
     console.log(checkoutData); // This will log the checkout data
   };
+
+
+  const payNow = async () => {
+    try {
+      const orderId = await createOrderId();
+      const options = {
+       key: process.env.key_id,
+       amount: parseFloat(total) * 100,
+       currency: currency,
+       name: shippingInfo.firstName + " " + shippingInfo.lastName,
+       description: 'description',
+       order_id: orderId,
+       handler: async function (response) {
+        const data = {
+         orderCreationId: orderId,
+         razorpayPaymentId: response.razorpay_payment_id,
+         razorpayOrderId: response.razorpay_order_id,
+         razorpaySignature: response.razorpay_signature,
+        };
+   
+        const result = await fetch('/api/verify-payment', {
+         method: 'POST',
+         body: JSON.stringify(data),
+         headers: { 'Content-Type': 'application/json' },
+        });
+        const res = await result.json();
+        if (res.isOk) {
+          // alert("payment succeed");
+          setCartItems([]);
+          localStorage.setItem('cart', JSON.stringify([]));
+          redirect('/payment-success');
+        }
+        else {
+         alert(res.message);
+        }
+       },
+       prefill: {
+        name: shippingInfo.name,
+        email: email,
+       },
+       theme: {
+        color: '#3399cc',
+       },
+      };
+      const paymentObject = new window.Razorpay(options);
+      paymentObject.on('payment.failed', function (response) {
+       alert(response.error.description);
+      });
+      paymentObject.open();
+     } catch (error) {
+      console.log(error);
+     }
+  }
+  const createOrderId = async () => {
+    try {
+     const response = await fetch('/api/create-order', {
+      method: 'POST',
+      headers: {
+       'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+       amount: parseFloat(total)*100,
+      })
+     });
+  
+     if (!response.ok) {
+      throw new Error('Network response was not ok');
+     }
+  
+     const data = await response.json();
+     return data.orderId;
+    } catch (error) {
+     console.error('There was a problem with your fetch operation:', error);
+    }
+   };
+
 
   // Handle input changes
   const handleInputChange = (event) => {
@@ -466,7 +550,7 @@ export default function CheckoutSection() {
                 <div className="mt-6">
                 <button
               type="submit"
-        
+              disabled={total>0 ? false : true}
               className="mt-10 w-full py-3 px-4 bg-indigo-600 text-white font-medium text-lg rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             >
               Pay Now
@@ -477,6 +561,12 @@ export default function CheckoutSection() {
           </div>
         </form>
       </div>
+
+      <Script
+    id="razorpay-checkout-js"
+    src="https://checkout.razorpay.com/v1/checkout.js"
+   />
+
     </div>
   );
 }

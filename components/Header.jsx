@@ -33,7 +33,7 @@ const Header = () => {
               />
                 </Link>
             </div>
-            <div className="max-lg:hidden flex gap-6 justify-center items-center flex-grow">
+            <div className="max-xl:hidden flex gap-6 justify-center items-center flex-grow">
               <Link
                 href="/"
                 className="hover:text-indigo-600 h-full border-b-2 border-transparent hover:border-indigo-600 hover:border-b-2"
@@ -101,7 +101,7 @@ const Header = () => {
                 </Link>
               </div>
 
-              <div className="flex lg:hidden">
+              <div className="flex xl:hidden">
                 <Sheet>
                   <SheetTrigger>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
