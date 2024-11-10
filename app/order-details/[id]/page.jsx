@@ -1,3 +1,4 @@
+import Image from "next/image"
 
 /* This example requires Tailwind CSS v2.0+ */
 const products = [
@@ -20,7 +21,7 @@ const page = () => {
         <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
           <div className="max-w-xl">
             <h1 className="text-base font-medium text-indigo-600">Thank you!</h1>
-            <p className="mt-2 text-4xl font-bold tracking-tight sm:text-5xl">It's on the way!</p>
+            <p className="mt-2 text-4xl font-bold tracking-tight sm:text-5xl">It&apos;s on the way!</p>
             <p className="mt-2 text-base text-gray-500">Your order #14034056 has shipped and will be with you soon.</p>
   
             <dl className="mt-12 text-sm font-medium">
@@ -35,7 +36,9 @@ const page = () => {
             <h3 className="sr-only">Items</h3>
             {products.map((product) => (
               <div key={product.id} className="flex space-x-6 border-b border-gray-200 py-10">
-                <img
+                <Image
+                width={100}
+                height={100}
                   src={product.imageSrc}
                   alt={product.imageAlt}
                   className="h-20 w-20 flex-none rounded-lg bg-gray-100 object-cover object-center sm:h-40 sm:w-40"

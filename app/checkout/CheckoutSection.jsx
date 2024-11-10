@@ -6,6 +6,7 @@ import { TrashIcon } from "lucide-react";
 import Script from 'next/script'
 import { redirect } from "next/navigation";
 import local from "next/font/local";
+import Image from "next/image";
 
 const deliveryMethods = [
   { id: 1, title: "Standard", turnaround: "4–10 business days", price: "₹40" },
@@ -485,7 +486,7 @@ export default function CheckoutSection() {
                 {cartItems.map((product) => (
                   <li key={product.designNo} className="flex py-6 px-4 sm:px-6">
                     <div className="flex-shrink-0">
-                      <img src={`/images/products/${product.designNo}.JPG`} alt={product.imageAlt} className="w-20 rounded-md" />
+                      <Image width={100} height={100} src={`/images/products/${product.designNo}.JPG`} alt={product.imageAlt} className="w-20 rounded-md" />
                     </div>
 
                     <div className="ml-6 flex flex-1 flex-col">
