@@ -1,4 +1,4 @@
-id,title,designNo,slug,diamondType,goldWeight,goldType,diamondWeight,mcPercentage,diamondPcs,category
-1,03-11417(2),03-11417(2),03-11417-2,"IJS,RJS,MJS","1.5,2.3","14K,18K,22K","0.396,0496",30,25,PENDANT SET
-2,SE0011,SE0011,SE0011,IJS,"1.32,1.42,1.83,999999",18K,"0.23,0.45",19.2,32,EARRING
-3,SE0012,SE0012,SE0012,RJS,1.5,"14K,18K,22K",0.56,19,10,NECKLACE
+id,title,designNo,diamondType,goldWeight,goldType,diamondWeight,mcPercentage,diamondPcs,category,
+1,03-11417(2),03-11417(2),"IJS,RJS,MJS","1.5,2.3","14K,18K,22K","0.396,0496",30,25,PENDANT SET,
+2,SE0011,SE0011,IJS,"1.32,1.42,1.83,999999",18K,"0.23,0.45",19.2,32,EARRING,
+3,SE0012,SE0012,RJS,1.5,"14K,18K,22K",0.56,19,10,NECKLACE,
