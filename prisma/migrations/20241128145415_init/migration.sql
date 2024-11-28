@@ -8,7 +8,7 @@ CREATE TABLE "Product" (
     "gold_weight" DOUBLE PRECISION[],
     "goldType" TEXT[],
     "diamond_weight" DOUBLE PRECISION[],
-    "mc_percentage" INTEGER NOT NULL,
+    "mc_percentage" DOUBLE PRECISION NOT NULL,
     "diamond_pcs" INTEGER NOT NULL,
     "category" TEXT NOT NULL,
 

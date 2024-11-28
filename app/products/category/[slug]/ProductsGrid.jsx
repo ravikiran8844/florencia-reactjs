@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { Loader } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState , useEffect} from "react";
@@ -40,13 +41,23 @@ const ProductsGrid = ({productsData,selectedCategory}) => {
   const [selectedCategories, setSelectedCategories] = useState([selectedCategory]);
   const [selectedGoldTypes, setSelectedGoldTypes] = useState([]);
   const [selectedDiamondTypes, setSelectedDiamondTypes] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleCheckboxChange = (setter, selectedItems, value) => {
+    setLoading(true);
     setter(
       selectedItems.includes(value)
         ? selectedItems.filter((item) => item !== value)
         : [...selectedItems, value]
     );
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+    console.log(selectedCategories)
+    console.log(selectedGoldTypes)
+
+    console.log(selectedDiamondTypes)
+
   };
 
   const filteredProducts = products.filter((product) => {
@@ -184,10 +195,10 @@ const ProductsGrid = ({productsData,selectedCategory}) => {
           </ul>
 
           {/* Gold Type Filter */}
-          <ul className="space-y-1 border-t border-gray-200 py-4">
+          {/* <ul className="space-y-1 border-t border-gray-200 py-4">
             <h4 className="font-semibold mb-3">Gold Type</h4>
-            {uniqueGoldTypes.map((goldType) => (
-              <li key={goldType}>
+            {uniqueGoldTypes.map((goldType,index) => (
+              <li key={index}>
                 <label className="inline-flex items-center gap-2">
                   <input
                     type="checkbox"
@@ -207,10 +218,10 @@ const ProductsGrid = ({productsData,selectedCategory}) => {
                 </label>
               </li>
             ))}
-          </ul>
+          </ul> */}
 
           {/* Diamond Type Filter */}
-          <ul className="space-y-1 border-t border-gray-200 py-4">
+          {/* <ul className="space-y-1 border-t border-gray-200 py-4">
             <h4 className="font-semibold mb-3">Diamond Type</h4>
             {uniqueDiamondTypes.map((diamondType) => (
               <li key={diamondType}>
@@ -233,7 +244,7 @@ const ProductsGrid = ({productsData,selectedCategory}) => {
                 </label>
               </li>
             ))}
-          </ul>
+          </ul> */}
         </div>
 
         {/* Product List and Pagination */}
@@ -258,7 +269,14 @@ const ProductsGrid = ({productsData,selectedCategory}) => {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2">
+          {loading ? (
+            <div className="flex justify-center items-center h-full">
+              <Loader className="animate-spin size-8 text-indigo-600" />
+            </div>
+          ) : (
+          
+         <div>
+           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2">
             {currentProducts.map((product) => {
               const defaultGoldWeight = parseFloat(product["GOLD WT"][0]);
               const defaultDiamondWeight = parseFloat(product["DIA WT"][0]);
@@ -306,22 +324,25 @@ const ProductsGrid = ({productsData,selectedCategory}) => {
               );
             })}
           </div>
-
           <div className="flex flex-wrap justify-center mt-6 gap-2">
-            {Array.from({ length: totalPages }, (_, index) => (
-              <button
-                key={index}
-                onClick={() => handlePageChange(index + 1)}
-                className={`px-4 py-2 rounded ${
-                  currentPage === index + 1
-                    ? "bg-indigo-500 text-white"
-                    : "bg-gray-200 text-gray-700"
-                }`}
-              >
-                {index + 1}
-              </button>
-            ))}
-          </div>
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button
+              key={index}
+              onClick={() => handlePageChange(index + 1)}
+              className={`px-4 py-2 rounded ${
+                currentPage === index + 1
+                  ? "bg-indigo-500 text-white"
+                  : "bg-gray-200 text-gray-700"
+              }`}
+            >
+              {index + 1}
+            </button>
+          ))}
+        </div>
+         </div>
+        )}
+
+          
         </div>
       </div>
     </div>
