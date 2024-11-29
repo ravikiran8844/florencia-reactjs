@@ -7,30 +7,28 @@ const prisma = new PrismaClient();
 async function updateOrCreateProductsFromCSV(filePath) {
   const results = [];
 
-  // Step 1: Parse CSV file
   fs.createReadStream(filePath)
     .pipe(csvParser())
     .on('data', (data) => {
-      // Parse comma-separated values for array fields
-      data.goldWeight = data.goldWeight.split(',').map(parseFloat);
-      data.diamondType = data.diamondType.split(',');
-      data.goldType = data.goldType.split(',');
-      data.diamondWeight = data.diamondWeight.split(',').map(parseFloat);
-      data.mcPercentage = parseFloat(data.mcPercentage);
-      data.diamondPcs = parseInt(data.diamondPcs, 10);
+      // Ensure id is an integer and parse other fields correctly
+      data.id = parseInt(data.id, 10);
+      data.goldWeight = JSON.parse(data.goldWeight).map(parseFloat).filter(val => !isNaN(val));
+      data.diamondType = JSON.parse(data.diamondType);
+      data.goldType = JSON.parse(data.goldType);
+      data.diamondWeight = JSON.parse(data.diamondWeight).map(parseFloat).filter(val => !isNaN(val));
+      data.mcPercentage = parseFloat(data.mcPercentage) || 0;
+      data.diamondPcs = parseInt(data.diamondPcs, 10) || 0;
 
       results.push(data);
     })
     .on('end', async () => {
-      // Step 2: Iterate through each product in the CSV
       for (const product of results) {
         const existingProduct = await prisma.product.findFirst({
-          where: { designNo: product.designNo }, // Using findFirst for non-unique fields
+          where: { designNo: product.designNo },
         });
 
         if (existingProduct) {
-          // Step 3: Update product if there are any differences
-          const needsUpdate =
+          const needsUpdate = (
             existingProduct.title !== product.title ||
             existingProduct.slug !== product.slug ||
             JSON.stringify(existingProduct.diamondType) !== JSON.stringify(product.diamondType) ||
@@ -39,13 +37,15 @@ async function updateOrCreateProductsFromCSV(filePath) {
             JSON.stringify(existingProduct.diamondWeight) !== JSON.stringify(product.diamondWeight) ||
             existingProduct.mcPercentage !== product.mcPercentage ||
             existingProduct.diamondPcs !== product.diamondPcs ||
-            existingProduct.category !== product.category;
+            existingProduct.category !== product.category
+          );
 
           if (needsUpdate) {
             await prisma.product.update({
               where: { id: existingProduct.id },
               data: {
                 title: product.title,
+                designNo: product.designNo,
                 slug: product.slug,
                 diamondType: product.diamondType,
                 goldWeight: product.goldWeight,
@@ -59,7 +59,6 @@ async function updateOrCreateProductsFromCSV(filePath) {
             console.log(`Updated product with designNo: ${product.designNo}`);
           }
         } else {
-          // Step 4: Create new product if it does not exist
           await prisma.product.create({
             data: {
               title: product.title,
@@ -82,9 +81,6 @@ async function updateOrCreateProductsFromCSV(filePath) {
     });
 }
 
-
-
-// Run the function with the path to your CSV file
 updateOrCreateProductsFromCSV('products_export.csv').catch((e) => {
   console.error(e);
   prisma.$disconnect();

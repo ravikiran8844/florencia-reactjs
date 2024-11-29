@@ -5,10 +5,28 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState , useEffect} from "react";
 
+// Constants for gold and diamond rates
+const GOLD_RATE = 7160;
+const DIAMOND_RATE = 110000;
 
-function calculatePrice(goldWeight, diamondWeight, makingCharge) {
-  const goldPrice = 6200; // example value per gram
-  const diamondPrice = 110000; // example value per carat
+
+const goldPrices = {
+  "18K": 5854,
+  "22K": 7160,
+  "24K": 7811,
+};
+
+const diamondPrices = {
+  "IJS": 110000,
+  "RJS": 150000,
+  "MJS": 180000,
+};
+
+function calculatePrice(goldWeight, diamondWeight, makingCharge,goldType,diamondType) {
+  console.log(goldType,"goldType")
+
+  const goldPrice = goldPrices[goldType] || GOLD_RATE;
+  const diamondPrice = diamondPrices[diamondType] || DIAMOND_RATE;
   return (
     goldWeight * goldPrice + diamondWeight * diamondPrice + makingCharge / 100
   );
@@ -62,11 +80,16 @@ const ProductsGrid = ({productsData,selectedCategory}) => {
 
   const filteredProducts = products.filter((product) => {
     const defaultGoldWeight = parseFloat(product["GOLD WT"][0]);
+    const defaultGoldType = product["GOLD TYPE"][0];
     const defaultDiamondWeight = parseFloat(product["DIA WT"][0]);
+    const defaultDiamondType = product["DIAMOND TYPE"][0];
+
     const price = calculatePrice(
       defaultGoldWeight,
       defaultDiamondWeight,
-      product["MC(%)"]
+      product["MC(%)"],
+      product["GOLD TYPE"][0],
+      product["DIAMOND TYPE"][0],
     );
 
     return (
@@ -89,12 +112,17 @@ const ProductsGrid = ({productsData,selectedCategory}) => {
     const priceA = calculatePrice(
       parseFloat(a["GOLD WT"][0]),
       parseFloat(a["DIA WT"][0]),
-      a["MC(%)"]
+      a["MC(%)"],
+      a["GOLD TYPE"][0],
+      a["DIAMOND TYPE"][0],
+
     );
     const priceB = calculatePrice(
       parseFloat(b["GOLD WT"][0]),
       parseFloat(b["DIA WT"][0]),
-      b["MC(%)"]
+      b["MC(%)"],
+      b["GOLD TYPE"][0],
+      b["DIAMOND TYPE"][0],
     );
 
     if (sortOption === "priceLowToHigh") return priceA - priceB;
@@ -258,7 +286,7 @@ const ProductsGrid = ({productsData,selectedCategory}) => {
             {/* Sort Options */}
             <div className="flex justify-between lg:ms-auto">
               <select
-                className="border border-gray-300 rounded px-3 py-2"
+                className="border border-gray-300 rounded ps-3 pe-10 py-2"
                 value={sortOption}
                 onChange={(e) => setSortOption(e.target.value)}
               >
@@ -283,7 +311,9 @@ const ProductsGrid = ({productsData,selectedCategory}) => {
               const price = calculatePrice(
                 defaultGoldWeight,
                 defaultDiamondWeight,
-                product["MC(%)"]
+                product["MC(%)"],
+                product["GOLD TYPE"][0],
+                product["DIAMOND TYPE"][0],
               );
 
               return (
@@ -350,3 +380,15 @@ const ProductsGrid = ({productsData,selectedCategory}) => {
 };
 
 export default ProductsGrid;
+
+
+
+
+
+
+
+
+
+
+
+

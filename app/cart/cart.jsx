@@ -44,7 +44,7 @@ export default function Cart() {
               <ul className="space-y-4">
                 {cart.map((item) => (
                   <li key={item.designNo} className="flex items-center gap-4 border-t py-2">
-                  <Link href={`/product/${item.designNo}`}>
+                  <Link href={`/product/${item.slug}`}>
                   <Image
                       width={200}
                       height={200}
@@ -54,7 +54,7 @@ export default function Cart() {
                     />
                   </Link>
                     <div>
-                      <Link href={`/product/${item.designNo}`}>
+                      <Link href={`/product/${item.slug}`}>
                       <h3 className="text-sm text-gray-900">{item.designNo}</h3>
                       </Link>
                       <dl className="mt-0.5 space-y-px text-[10px] text-gray-600">

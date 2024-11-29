@@ -18,10 +18,26 @@ import { Loader } from "lucide-react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from 'next/navigation'
+import { set } from "react-hook-form";
 
 // Constants for gold and diamond rates
-const GOLD_RATE = 6200;
+const GOLD_RATE = 7160;
 const DIAMOND_RATE = 110000;
+
+
+const goldPrices = {
+  "18K": 5854,
+  "22K": 7160,
+  "24K": 7811,
+};
+
+const diamondPrices = {
+  "IJS": 110000,
+  "RJS": 150000,
+  "MJS": 180000,
+};
+
+
 
 const ProductPage = ({ params }) => {
   const [product, setProduct] = useState(null); // Use null initially
@@ -32,54 +48,52 @@ const ProductPage = ({ params }) => {
   const router = useRouter()
 
 
-
   useEffect(() => {
-    // Fetch JSON data from the public folder
     fetch("/products.json")
       .then((response) => response.json())
       .then((jsonData) => {
-        // Find the product with the matching slug
         const filteredProduct = jsonData.find((item) => item.slug === slug);
-        setProduct(filteredProduct); // Set the product state
+        setProduct(filteredProduct);
       })
       .catch((error) => console.error("Error fetching JSON:", error));
-  }, [slug]); // Dependency array includes 'slug' to refetch when slug changes
+  }, [slug]);
 
-  // Initialize selected options only after the product data is fetched
   const [selectedGoldType, setSelectedGoldType] = useState("");
   const [selectedGoldWt, setSelectedGoldWt] = useState("");
   const [selectedDiamondType, setSelectedDiamondType] = useState("");
   const [selectedDiaWt, setSelectedDiaWt] = useState("");
+  const [price, setPrice] = useState(0);
 
   useEffect(() => {
     if (product) {
-      // Set default selected options when the product is available
-      setSelectedGoldType(product["GOLD TYPE"][0]);
-      setSelectedGoldWt(product["GOLD WT"][0]);
-      setSelectedDiamondType(product["DIAMOND TYPE"][0]);
-      setSelectedDiaWt(product["DIA WT"][0]);
+      setSelectedGoldType(product["GOLD TYPE"]?.[0] || "");
+      setSelectedGoldWt(product["GOLD WT"]?.[0] || "");
+      setSelectedDiamondType(product["DIAMOND TYPE"]?.[0] || "");
+      setSelectedDiaWt(product["DIA WT"]?.[0] || "");
     }
   }, [product]);
 
-  // Calculate the price based on the selected options
+  useEffect(() => {
+    setPrice(calculatePrice());
+  }, [selectedGoldType, selectedGoldWt, selectedDiamondType, selectedDiaWt]);
+
   const calculatePrice = () => {
-    if (!product) return "0.00"; // Return default price if product is not yet available
+    if (!product) return "0.00";
 
-    const goldWeight = parseFloat(selectedGoldWt);
-    const diamondWeight = parseFloat(selectedDiaWt);
-    const mcValue = product["MC(%)"];
+    const goldWeight = parseFloat(selectedGoldWt) || 0;
+    const diamondWeight = parseFloat(selectedDiaWt) || 0;
+    const mcValue = parseFloat(product["MC(%)"]) || 0;
+    const goldRate = goldPrices[selectedGoldType] || GOLD_RATE;
+    const diamondRate = diamondPrices[selectedDiamondType] || DIAMOND_RATE;
 
-    const goldPrice = goldWeight * GOLD_RATE;
-    const diamondPrice = diamondWeight * DIAMOND_RATE;
+    const goldPrice = goldWeight * goldRate;
+    const diamondPrice = diamondWeight * diamondRate;
 
     return (
-      goldPrice +
-      diamondPrice +
-      (mcValue / 100) * (goldPrice + diamondPrice)
+     goldPrice + diamondPrice + mcValue / 100
     ).toFixed(2);
   };
-
-  const price = calculatePrice();
+  
 
 
 
