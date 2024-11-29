@@ -291,10 +291,10 @@ const ProductPage = ({ params }) => {
                 {selectedDiaWt} ct
               </div>
             </div>
-            <div className="bg-yellow-400 p-2 flex-grow text-black flex items-center justify-center text-center">
+            <div className="bg-yellow-400 flex-grow text-black flex items-center justify-center text-center h-full">
               <Dialog>
-                <DialogTrigger>
-                  <div className="uppercase text-sm h-full font-medium fle">
+                <DialogTrigger className="h-full p-2">
+                  <div className="uppercase text-sm h-full font-medium flex items-center justify-center">
                     Customize
                   </div>
                 </DialogTrigger>
